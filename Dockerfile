@@ -6,5 +6,4 @@ RUN mamba init && \
 
 COPY --chown=jovyan:jovyan src /renku_templates
 
-ENTRYPOINT ["voila", "--Voila.ip='0.0.0.0'", "--port", "8888"]
-CMD ["/renku_templates/apply_template.ipynb"]
+CMD [ "jupyter", "server", "--ip", "0.0.0.0", "/renku_templates/apply_template.ipynb"]
