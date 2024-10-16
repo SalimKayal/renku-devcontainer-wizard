@@ -5,5 +5,6 @@ RUN mamba init && \
     npm install -g @devcontainers/cli
 
 COPY --chown=jovyan:jovyan src /renku_templates
+COPY --chown=jovyan:jovyan --chmod=755 entrypoint.sh /entrypoint.sh
 
-CMD [ "jupyter", "server", "--ip", "0.0.0.0", "/renku_templates/apply_template.ipynb"]
+CMD [ "jupyter", "server", "--ip", "0.0.0.0"]
