@@ -45,9 +45,13 @@ fi
 # Start the SHH daemon in the background
 /usr/sbin/sshd -f /opt/ssh/sshd_config -E /tmp/sshd.log
 
-#start voila in the background
+#symlink the wizard to JUPYTER_SERVER_ROOT
 jupyter trust /renku_templates/apply_template.ipynb
-voila --Voila.ip='0.0.0.0' --port 8888 /renku_templates/apply_template.ipynb >/tmp/voila.stdout 2> /tmp/voila.stderr &
+if [ -z $JUPYTER_SERVER_ROOT ]; then
+  ln -s /renku_templates/* /home/jovyan/work/
+else
+  ln -s /renku_templates/apply_template.ipynb $JUPYTER_SERVER_ROOT
+fi
 
 # Override the jupyter command to be forward compatible with newer
 # images that no longer launch the whole server with `jupyter notebook`.
